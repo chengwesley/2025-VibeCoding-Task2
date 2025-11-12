@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wesley · 前端開發者個人品牌網站</title>
+    <title>衛斯理 · 前端開發者個人品牌網站</title>
     <meta name="description" content="這是一個前端工程師的個人品牌展示網站，旨在介紹開發者的背景、專業技能、展示精選作品集，並提供多種聯絡方式。內容將遵循手機優先設計原則。">
 
     <style>
@@ -199,26 +199,62 @@
         /* CSS:HERO-END */
 
         /* CSS:ABOUT-START */
-        /* About 區樣式 */
+        /* About 區樣式 - 手機優先單欄排版 */
         .section-about {
             background-color: var(--color-dark-bg);
         }
 
         .about-grid {
-            display: grid;
-            gap: 2rem;
-            grid-template-columns: 1fr; /* 手機單欄 */
+            display: flex;
+            flex-direction: column; /* 手機單欄：文字在上，照片在下 */
+            gap: 2.5rem;
             align-items: center;
         }
 
-        .about-content p {
-            font-size: 1rem;
+        .about-text {
+            order: 1; /* 文字先於照片 */
+        }
+        
+        .about-media {
+            order: 2; /* 照片後於文字 */
+            width: 100%;
+            max-width: 400px; /* 限制手機版圖片寬度 */
         }
 
         .about-image {
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
+
+        .about-highlight-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 1.5rem;
+        }
+
+        .about-highlight-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-text-light);
+        }
+
+        .about-highlight-list li::before {
+            content: "✓"; 
+            color: var(--color-primary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .about-cta-group {
+            margin-top: 2rem;
+        }
+
+        .about-cta-group .btn:not(:last-child) {
+            margin-right: 1rem;
+        }
+
         /* CSS:ABOUT-END */
 
         /* CSS:SKILLS-START */
@@ -342,11 +378,23 @@
                 max-width: 60%;
             }
 
-            /* About 雙欄 */
+            /* About 雙欄排版 */
             .about-grid {
-                grid-template-columns: 1fr 1.5fr; /* 圖片：內容 = 1:1.5 */
+                display: grid;
+                grid-template-columns: 1fr 1fr; /* 平板以上：左右雙欄 */
+                gap: 3rem;
+                align-items: start; /* 確保內容從頂部對齊 */
             }
 
+            .about-text {
+                order: initial; /* 恢復預設順序：文字在左 */
+            }
+
+            .about-media {
+                order: initial; /* 恢復預設順序：照片在右 */
+                max-width: 100%; /* 雙欄後不限制單張最大寬度 */
+            }
+            
             /* Projects 雙欄 */
             .project-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -374,7 +422,7 @@
     <div class="page">
         <header class="site-header">
             <div class="container nav">
-                <a href="#hero" class="logo">王小明 · Frontend Dev</a>
+                <a href="#hero" class="logo">衛斯理 · Frontend Dev</a>
                 
                 <nav>
                     <ul class="nav-list">
@@ -417,21 +465,41 @@
             </section>
             <section id="about" class="section section-about" aria-labelledby="about-heading">
                 <div class="container">
-                    <h2 id="about-heading" class="section-title">關於我（之後會用 Section SDD 替換）</h2>
+                    <h2 id="about-heading" class="section-title">關於我</h2>
                     
                     <div class="about-grid">
-                        <div class="about-content">
-                            <p>這裡目前是 About 區的占位內容，目的是讓開發者確認骨架與樣式是否正常套用。</p>
+                        <div class="about-text">
                             <p>
-                                **提示：**之後會用 Section SDD 的 Prompt 產生新的 section，請把新的 section 程式碼**整段貼在這兩個註解中間**，完全取代現在這一區。
-                                未來此區塊會包含您的個人介紹、經歷與理念。
+                                我是衛斯理，一位專注於前端技術的獨立工程師，同時也熱衷於教學和接案。
+                                我的主要技能包括 **HTML5, CSS3/Sass/Tailwind** 等核心技術，並具備 Vue.js 與 React 的實戰經驗。
+                                我致力於將設計稿精準轉換為具備高性能與良好無障礙體驗的網頁介面。
                             </p>
-                            <a href="https://www.linkedin.com/in/yourname" class="btn" style="background-color: var(--color-secondary);">LinkedIn 檔案 (占位連結)</a>
+                            
+                            <p>
+                                我相信良好的合作始於清晰的溝通。我習慣將複雜的技術概念拆解，並以教學的方式確保團隊或客戶理解進度與決策。
+                                在開發中，我特別重視程式碼的可讀性與架構的彈性，確保專案能長久維護與迭代。
+                            </p>
+
+                            <ul class="about-highlight-list">
+                                <li>能將複雜需求轉化為清晰的技術規格。</li>
+                                <li>專精於 Mobile-First 響應式網頁設計與效能優化。</li>
+                                <li>重視用戶體驗與設計規範的落實。</li>
+                            </ul>
+                            
+                            <div class="about-cta-group">
+                                <a href="#projects" class="btn">查看作品集</a>
+                                <a href="#contact" class="btn" style="background-color: var(--color-secondary);">聯絡我</a>
+                            </div>
+
+                            <p style="margin-top: 2rem; font-size: 0.85rem; opacity: 0.8;">
+                                **提示：**之後會用 Section SDD 的 Prompt 產生新的 section，請把新的 section 程式碼**整段貼在這兩個註解中間**，完全取代現在這一區。
+                            </p>
                         </div>
-                        <div class="about-image-wrapper">
+
+                        <div class="about-media">
                             <img 
-                                src="https://source.unsplash.com/800x600/?office,coffee,desk" 
-                                alt="乾淨專業的辦公桌與咖啡" 
+                                src="https://source.unsplash.com/800x800/?programmer,coding,engineer" 
+                                alt="一位專注在螢幕前寫程式碼的工程師工作場景" 
                                 class="about-image"
                                 loading="lazy"
                             >
@@ -518,7 +586,7 @@
 
         <footer class="site-footer">
             <div class="container">
-                <p>&copy; 2025 王小明 · Frontend Dev. All rights reserved.</p>
+                <p>&copy; 2025 衛斯理 · Frontend Dev. All rights reserved.</p>
                 <p>網站骨架由 AI 輔助生成，內容來自 Unsplash 與占位文字。</p>
                 <p><a href="#hero">回到頁面頂部</a></p>
             </div>
